@@ -202,6 +202,65 @@ public class ParcelController extends BaseController{
         return responseData;
     }
 
+    @GetMapping("/parceldatauid")
+
+    public ResponseData getparceluid(@QueryParam(value = "userId") String userId) throws SQLException, ClassNotFoundException, ParseException {
+        RequestContext.clear(); //clear pre-existing data
+        // generating UUID for this new request
+        final String reqID = UUID.randomUUID().toString();
+        // update RequestContext for tracking with reqID
+        RequestContext.add("reqID", reqID);
+        System.out.println("asas");
+        if(isEmpty(String.valueOf(userId))){
+            logger.warn("Invalid request param `userId`: " + userId);
+            System.out.println("UserId is empty returning all Parcel data");
+            ClientSaiaFarmApplication dao = new ClientSaiaFarmApplication();
+            //dao.readDataBase();
+            List<SaiaiParcelData> parcelData =  dao.ParcelData();
+            //String something = new String(String.valueOf(dao.FarmData()));
+            //String something = new String(String.valueOf(dao.Comment()));
+            //return parcelData;
+            //throwBadRequestException(ResponseCode.CLIENT_INVALID_REQ_PARAM_FARM_ID);
+
+            System.out.println(parcelData);
+//        for(SaiaiParcelData oneSingleParcel: parcelInfo){
+//            retSaiparcelData.add(oneSingleParcel);
+//        }
+
+            //Here we have to filter the data (use only desired fields)
+            HashMap<String, Object> retData =new LinkedHashMap<>();
+            retData.put("parcel_info", parcelData.get(0));
+            RequestContext.clear();//clear the thread before return
+
+            ResponseData responseData = new ResponseData(reqID, Response.Status.OK.getStatusCode(), ResponseCode.SUCCESS.getCode(), retData);
+
+            return responseData;
+
+
+        }
+        HashMap<String, Object> retData =new LinkedHashMap<>();
+
+        ClientSaiaFarmApplication dao = new ClientSaiaFarmApplication();
+
+        List<SaiaiParcelData> parcelInfo = dao.SingleParcelData_uid(userId);
+        System.out.println(parcelInfo);
+//        for(SaiaiParcelData oneSingleParcel: parcelInfo){
+//            retSaiparcelData.add(oneSingleParcel);
+//        }
+
+        //Here we have to filter the data (use only desired fields)
+        if(parcelInfo.size()!=0)
+            retData.put("parcel_info", parcelInfo.get(0));
+        else
+            System.out.println("Invalid User ID");
+        RequestContext.clear();//clear the thread before return
+
+        ResponseData responseData = new ResponseData(reqID, Response.Status.OK.getStatusCode(), ResponseCode.SUCCESS.getCode(), retData);
+
+        return responseData;
+    }
+
+
     @GetMapping("/get_parcelsdata")
     public List<SaiaiParcelData> StringData() throws Exception {
 
@@ -214,6 +273,7 @@ public class ParcelController extends BaseController{
         return parcelData;
 
     }
+
 
     @PostMapping("/et_parceldata")
 

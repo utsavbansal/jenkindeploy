@@ -83,7 +83,7 @@ public class ClientSaiaFarmApplication {
 
 		//resultSet = statement.executeQuery("select head_name, gender, son_wife_daughter, literacy, village, address_landmark, farmer_address_coordinates from sai.saia_farmers");
 			//resultSet = statement.executeQuery("select * from sai.saia_farmers");
-			resultSet = statement.executeQuery("select user_id, farmer_id, type, head_name, gender, son_wife_daughter, literacy, ST_AsText(farmer_address_coordinates), address, date_created, date_modified  from sai.saia_farmers");
+			resultSet = statement.executeQuery("select user_id, farmer_id, type, head_name, gender, son_wife_daughter, literacy, ST_AsText(farmer_address_coordinates,'axis-order=long-lat'), address, date_created, date_modified  from sai.saia_farmers");
 
 
 			System.out.println("check point 2 all");
@@ -123,7 +123,7 @@ public class ClientSaiaFarmApplication {
 			//Geometry farmer_address_coordinates = (Geometry) resultSet.getBlob("farmer_address_coordinates");
 			//Blob farmer_address_coordinates = resultSet.getBlob("farmer_address_coordinates");
 			//ArrayList farmer_address_coordinates = (ArrayList) resultSet.getArray(1);
-			String farmer_address_coordinates = resultSet.getString("ST_AsText(farmer_address_coordinates)");
+			String farmer_address_coordinates = resultSet.getString("ST_AsText(farmer_address_coordinates,'axis-order=long-lat')");
 			System.out.println("Array: "+farmer_address_coordinates);
 			System.out.println("check point 5 all");
 
@@ -171,7 +171,7 @@ public class ClientSaiaFarmApplication {
 			//Geometry farmer_address_coordinates = (Geometry) resultSet.getBlob("farmer_address_coordinates");
 			//Blob farmer_address_coordinates = resultSet.getBlob("farmer_address_coordinates");
 			//ArrayList farmer_address_coordinates = (ArrayList) resultSet.getArray(1);
-			String farmer_address_coordinates = resultSet.getString("ST_AsText(farmer_address_coordinates)");
+			String farmer_address_coordinates = resultSet.getString("ST_AsText(farmer_address_coordinates,'axis-order=long-lat')");
 			System.out.println("Array: "+farmer_address_coordinates);
 			System.out.println("check point 5 all");
 
@@ -228,8 +228,8 @@ public class ClientSaiaFarmApplication {
 			//resultSet = statement.executeQuery("select head_name, gender, son_wife_daughter, literacy, village, address_landmark, farmer_address_coordinates from sai.saia_farmers");
 			//resultSet = statement.executeQuery("select * from sai.saia_farmers");
 			System.out.println("check1 for single farmer");
-			//String query = "select head_name, gender, son_wife_daughter, literacy, village, address_landmark, ST_AsText(farmer_address_coordinates)  from sai.saia_farmers WHERE farmer_id ="+farmer_id;
-			String query = "select user_id, farmer_id, type, head_name, gender, son_wife_daughter, literacy, address, ST_AsText(farmer_address_coordinates), date_created, date_modified from sai.saia_farmers WHERE farmer_id ="+farmer_id;
+			//String query = "select head_name, gender, son_wife_daughter, literacy, village, address_landmark, ST_AsText(farmer_address_coordinates,'axis-order=long-lat')  from sai.saia_farmers WHERE farmer_id ="+farmer_id;
+			String query = "select user_id, farmer_id, type, head_name, gender, son_wife_daughter, literacy, address, ST_AsText(farmer_address_coordinates,'axis-order=long-lat'), date_created, date_modified from sai.saia_farmers WHERE farmer_id ="+farmer_id;
 			//System.out.println("sql query " + pstmt.toString());
 			resultSet = statement.executeQuery(query);
 			System.out.println("check2 for single farmer");
@@ -269,7 +269,7 @@ public class ClientSaiaFarmApplication {
 			//Geometry farmer_address_coordinates = (Geometry) resultSet.getBlob("farmer_address_coordinates");
 			//Blob farmer_address_coordinates = resultSet.getBlob("farmer_address_coordinates");
 			//ArrayList farmer_address_coordinates = (ArrayList) resultSet.getArray(1);
-			String farmer_address_coordinates = resultSet.getString("ST_AsText(farmer_address_coordinates)");
+			String farmer_address_coordinates = resultSet.getString("ST_AsText(farmer_address_coordinates,'axis-order=long-lat')");
 
 
 
@@ -374,7 +374,7 @@ public class ClientSaiaFarmApplication {
 			return null;
 		}
 
-		resultSet = statement.executeQuery("select user_id, farm_id, farmer_id, type, farm_name, farmsizecategory, farm_type, farm_size, address, ST_AsText(farm_coordinates), date_created, date_modified  from sai.agri_farm");
+		resultSet = statement.executeQuery("select user_id, farm_id, farmer_id, type, farm_name, farmsizecategory, farm_type, farm_size, address, ST_AsText(farm_coordinates,'axis-order=long-lat'), date_created, date_modified  from sai.agri_farm");
 		List<SaiaFarmData> retSariFarm = new ArrayList<>();
 		retSariFarm = farmwriteResultSet(resultSet);
 
@@ -397,7 +397,7 @@ public class ClientSaiaFarmApplication {
 			String type = resultSet.getString("type");
 			String farmsizecategory = resultSet.getString("farmsizecategory");
 			String farm_name = resultSet.getString("farm_name");
-			String farm_coordinates = resultSet.getString("ST_AsText(farm_coordinates)");
+			String farm_coordinates = resultSet.getString("ST_AsText(farm_coordinates,'axis-order=long-lat')");
 			//String farm_coordinates = resultSet.getString("farm_coordinates");
 			String farm_type = resultSet.getString("farm_type");
 			String farm_size = resultSet.getString("farm_size");
@@ -482,10 +482,10 @@ public class ClientSaiaFarmApplication {
 
 			//resultSet = statement.executeQuery("select head_name, gender, son_wife_daughter, literacy, village, address_landmark, farmer_address_coordinates from sai.saia_farmers");
 			//resultSet = statement.executeQuery("select * from sai.saia_farmers");
-			//String query = "select user_id, farm_name, farm_size, farm_type, farmsizecategory, farmer_id, ST_AsText(farm_coordinates) from sai.agri_farm WHERE farmer_id =+userId";
-			String query = "select user_id, farm_name, farm_size, farm_type, farmsizecategory, farmer_id, ST_AsText(farm_coordinates) from sai.agri_farm WHERE user_id ='" + userId + "' AND farm_name='" + farmName + "'";
+			//String query = "select user_id, farm_name, farm_size, farm_type, farmsizecategory, farmer_id, ST_AsText(farm_coordinates,'axis-order=long-lat') from sai.agri_farm WHERE farmer_id =+userId";
+			String query = "select user_id, farm_name, farm_size, farm_type, farmsizecategory, farmer_id, ST_AsText(farm_coordinates,'axis-order=long-lat') from sai.agri_farm WHERE user_id ='" + userId + "' AND farm_name='" + farmName + "'";
 
-			//resultSet = statement.executeQuery("select user_id, farm_name, farm_size, farm_type, farmsizecategory, farmer_id, ST_AsText(farm_coordinates) from sai.agri_farm WHERE farmer_id ="+farmer_id);
+			//resultSet = statement.executeQuery("select user_id, farm_name, farm_size, farm_type, farmsizecategory, farmer_id, ST_AsText(farm_coordinates,'axis-order=long-lat') from sai.agri_farm WHERE farmer_id ="+farmer_id);
 			resultSet = statement.executeQuery(query);
 
 
@@ -514,10 +514,10 @@ public class ClientSaiaFarmApplication {
 
 			//resultSet = statement.executeQuery("select head_name, gender, son_wife_daughter, literacy, village, address_landmark, farmer_address_coordinates from sai.saia_farmers");
 			//resultSet = statement.executeQuery("select * from sai.saia_farmers");
-			//String query = "select user_id, farm_name, farm_size, farm_type, farmsizecategory, farmer_id, ST_AsText(farm_coordinates) from sai.agri_farm WHERE farmer_id =+userId";
-			String query = "select user_id, farm_name, type,farm_id,farm_size, farm_type, farmsizecategory, address, date_created, date_modified,farmer_id, ST_AsText(farm_coordinates) from sai.agri_farm WHERE user_id ='" + userId + "' AND farm_name='" + farmName + "'";
+			//String query = "select user_id, farm_name, farm_size, farm_type, farmsizecategory, farmer_id, ST_AsText(farm_coordinates,'axis-order=long-lat') from sai.agri_farm WHERE farmer_id =+userId";
+			String query = "select user_id, farm_name, type,farm_id,farm_size, farm_type, farmsizecategory, address, date_created, date_modified,farmer_id, ST_AsText(farm_coordinates,'axis-order=long-lat') from sai.agri_farm WHERE user_id ='" + userId + "' AND farm_name='" + farmName + "'";
 
-			//resultSet = statement.executeQuery("select user_id, farm_name, farm_size, farm_type, farmsizecategory, farmer_id, ST_AsText(farm_coordinates) from sai.agri_farm WHERE farmer_id ="+farmer_id);
+			//resultSet = statement.executeQuery("select user_id, farm_name, farm_size, farm_type, farmsizecategory, farmer_id, ST_AsText(farm_coordinates,'axis-order=long-lat') from sai.agri_farm WHERE farmer_id ="+farmer_id);
 			resultSet = statement.executeQuery(query);
 
 
@@ -545,7 +545,7 @@ public class ClientSaiaFarmApplication {
 		}
 		else {
 			System.out.println("check1 for single farmer");
-			String query = "select user_id, farm_id, farmer_id, type, farm_name, farmsizecategory, farm_type, farm_size, address, ST_AsText(farm_coordinates), date_created, date_modified from sai.agri_farm WHERE farm_id ="+farm_id;
+			String query = "select user_id, farm_id, farmer_id, type, farm_name, farmsizecategory, farm_type, farm_size, address, ST_AsText(farm_coordinates,'axis-order=long-lat'), date_created, date_modified from sai.agri_farm WHERE farm_id ="+farm_id;
 			resultSet = statement.executeQuery(query);
 			System.out.println("check2 for single farmer");
 			List<SaiaFarmData> msqlData = farmwriteResultSet(resultSet);
@@ -562,7 +562,7 @@ public class ClientSaiaFarmApplication {
 			return null;
 		}
 		else {
-			String query = "select user_id, farm_id, farmer_id, type, farm_name, farmsizecategory, farm_type, farm_size, address, ST_AsText(farm_coordinates), date_created, date_modified from sai.agri_farm WHERE user_id ='"+userId+"';";
+			String query = "select user_id, farm_id, farmer_id, type, farm_name, farmsizecategory, farm_type, farm_size, address, ST_AsText(farm_coordinates,'axis-order=long-lat'), date_created, date_modified from sai.agri_farm WHERE user_id ='"+userId+"';";
 			resultSet = statement.executeQuery(query);
 
 			List<SaiaFarmData> msqlData = farmwriteResultSet(resultSet);
@@ -577,8 +577,8 @@ public class ClientSaiaFarmApplication {
 			return null;
 		} else {
 			System.out.println("check2 client parcel");
-			//String query = "select parcel_id, user_id, farm_id, type, ST_AsText(location), area, category, related_source, belongs_to, has_agri_crop, has_agri_soil, last_planted_at, water_stressmean, parcel_name from sai.agri_parcel WHERE user_id ="+user_id;
-			String query = "select parcel_id, user_id, farm_id, type, ST_AsText(location), area, category, related_source, belongs_to, has_agri_crop, has_agri_soil, last_planted_at, date_created, date_modified,water_stressmean, parcel_name from sai.agri_parcel WHERE user_id ='" + userId + "' AND parcel_name='" + parcelName + "'";
+			//String query = "select parcel_id, user_id, farm_id, type, ST_AsText(location,'axis-order=long-lat'), area, category, related_source, belongs_to, has_agri_crop, has_agri_soil, last_planted_at, water_stressmean, parcel_name from sai.agri_parcel WHERE user_id ="+user_id;
+			String query = "select parcel_id, user_id, farm_id, type, ST_AsText(location,'axis-order=long-lat'), area, category, related_source, belongs_to, has_agri_crop, has_agri_soil, last_planted_at, date_created, date_modified,water_stressmean, parcel_name from sai.agri_parcel WHERE user_id ='" + userId + "' AND parcel_name='" + parcelName + "'";
 			System.out.println("check3 client parcel");
 			this.resultSet = this.statement.executeQuery(query);
 			List<SaiaiParcelData> msqlData = this.parcelwriteResultSet(this.resultSet);
@@ -598,12 +598,12 @@ public class ClientSaiaFarmApplication {
 
 			//resultSet = statement.executeQuery("select head_name, gender, son_wife_daughter, literacy, village, address_landmark, farmer_address_coordinates from sai.saia_farmers");
 			//resultSet = statement.executeQuery("select * from sai.saia_farmers");
-			//String query = "select user_id, farm_name, farm_size, farm_type, farmsizecategory, farmer_id, ST_AsText(farm_coordinates) from sai.agri_farm WHERE farmer_id =+userId";
-			String query = "select user_id, parcel_name, type,parcel_id,  area, category, related_source, belongs_to, has_agri_crop, has_agri_soil,last_planted_at, water_stressmean, date_created, date_modified,farm_id, ST_AsText(location) from sai.agri_parcel WHERE user_id ='" + userId + "' AND parcel_name='" + parcelName + "'";
-			//String query = "select user_id, farm_name, type,farm_id,farm_size, farm_type, farmsizecategory, address, date_created, date_modified,farmer_id, ST_AsText(farm_coordinates) from sai.agri_farm WHERE user_id ='" + userId + "' AND farm_name='" + farmName + "'";
+			//String query = "select user_id, farm_name, farm_size, farm_type, farmsizecategory, farmer_id, ST_AsText(farm_coordinates,'axis-order=long-lat') from sai.agri_farm WHERE farmer_id =+userId";
+			String query = "select user_id, parcel_name, type,parcel_id,  area, category, related_source, belongs_to, has_agri_crop, has_agri_soil,last_planted_at, water_stressmean, date_created, date_modified,farm_id, ST_AsText(location,'axis-order=long-lat') from sai.agri_parcel WHERE user_id ='" + userId + "' AND parcel_name='" + parcelName + "'";
+			//String query = "select user_id, farm_name, type,farm_id,farm_size, farm_type, farmsizecategory, address, date_created, date_modified,farmer_id, ST_AsText(farm_coordinates,'axis-order=long-lat') from sai.agri_farm WHERE user_id ='" + userId + "' AND farm_name='" + farmName + "'";
 
 
-			//resultSet = statement.executeQuery("select user_id, farm_name, farm_size, farm_type, farmsizecategory, farmer_id, ST_AsText(farm_coordinates) from sai.agri_farm WHERE farmer_id ="+farmer_id);
+			//resultSet = statement.executeQuery("select user_id, farm_name, farm_size, farm_type, farmsizecategory, farmer_id, ST_AsText(farm_coordinates,'axis-order=long-lat') from sai.agri_farm WHERE farmer_id ="+farmer_id);
 			resultSet = statement.executeQuery(query);
 
 
@@ -627,7 +627,21 @@ public class ClientSaiaFarmApplication {
 			System.out.println("Exception: not connected properly");
 			return null;
 		} else {
-			String query = "select parcel_id, user_id, farm_id, type, ST_AsText(location), area, category, related_source, belongs_to, has_agri_crop, has_agri_soil, last_planted_at, date_created, date_modified, water_stressmean, parcel_name from sai.agri_parcel WHERE parcel_id =" + parcelId;
+			String query = "select parcel_id, user_id, farm_id, type, ST_AsText(location,'axis-order=long-lat'), area, category, related_source, belongs_to, has_agri_crop, has_agri_soil, last_planted_at, date_created, date_modified, water_stressmean, parcel_name from sai.agri_parcel WHERE parcel_id =" + parcelId;
+			this.resultSet = this.statement.executeQuery(query);
+
+			List<SaiaiParcelData> msqlData = this.parcelwriteResultSet(this.resultSet);
+			System.out.println("checking for parcel data------------------" + msqlData);
+			return msqlData;
+		}
+	}
+	public List<SaiaiParcelData> SingleParcelData_uid(String userId) throws SQLException, ClassNotFoundException, ParseException {
+		boolean connectionValue = this.sqlconn();
+		if (!connectionValue) {
+			System.out.println("Exception: not connected properly");
+			return null;
+		} else {
+			String query = "select parcel_id, user_id, farm_id, type, ST_AsText(location,'axis-order=long-lat'), area, category, related_source, belongs_to, has_agri_crop, has_agri_soil, last_planted_at, date_created, date_modified, water_stressmean, parcel_name from sai.agri_parcel WHERE user_id ='" + userId+"'";
 			this.resultSet = this.statement.executeQuery(query);
 
 			List<SaiaiParcelData> msqlData = this.parcelwriteResultSet(this.resultSet);
@@ -646,7 +660,7 @@ public class ClientSaiaFarmApplication {
 			String userId =resultSet.getString("user_id");
 			String farm_id =resultSet.getString("farm_id");
 			String type = resultSet.getString("type");
-			String location = resultSet.getString("ST_AsText(location)");
+			String location = resultSet.getString("ST_AsText(location,'axis-order=long-lat')");
 			String area = resultSet.getString("area");
 			String category = resultSet.getString("category");
 			String relatedSource =resultSet.getString("related_source");
@@ -717,7 +731,7 @@ public class ClientSaiaFarmApplication {
 			System.out.println("Exception: not connected properly");
 			return null;
 		} else {
-			this.resultSet = this.statement.executeQuery("select parcel_id, user_id, farm_id, type, ST_AsText(location), area, category, related_source, belongs_to, has_agri_crop, has_agri_soil, last_planted_at, date_created, date_modified, water_stressmean, parcel_name from sai.agri_parcel");
+			this.resultSet = this.statement.executeQuery("select parcel_id, user_id, farm_id, type, ST_AsText(location,'axis-order=long-lat'), area, category, related_source, belongs_to, has_agri_crop, has_agri_soil, last_planted_at, date_created, date_modified, water_stressmean, parcel_name from sai.agri_parcel");
 			new ArrayList();
 			List<SaiaiParcelData> retSariParcel = this.parcelwriteResultSet(this.resultSet);
 			return retSariParcel;
@@ -733,9 +747,9 @@ public class ClientSaiaFarmApplication {
 		}
 		else {
 
-			//String query = "select farmer_id, type, head_name, gender, son_wife_daughter, literacy, address, ST_AsText(farmer_address_coordinates), date_created, date_modified from sai.saia_farmers WHERE farmer_id ="+farmer_id;
-			//String query = "select farmer_id, type, head_name, gender, son_wife_daughter, literacy, address, ST_AsText(farmer_address_coordinates), date_created, date_modified from sai.saia_farmers WHERE user_id = +user_id";
-			String query = "select farmer_id, user_id, type, head_name, gender, son_wife_daughter, literacy, address, ST_AsText(farmer_address_coordinates), date_created, date_modified from sai.saia_farmers WHERE user_id ='"+user_id+"';";
+			//String query = "select farmer_id, type, head_name, gender, son_wife_daughter, literacy, address, ST_AsText(farmer_address_coordinates,'axis-order=long-lat'), date_created, date_modified from sai.saia_farmers WHERE farmer_id ="+farmer_id;
+			//String query = "select farmer_id, type, head_name, gender, son_wife_daughter, literacy, address, ST_AsText(farmer_address_coordinates,'axis-order=long-lat'), date_created, date_modified from sai.saia_farmers WHERE user_id = +user_id";
+			String query = "select farmer_id, user_id, type, head_name, gender, son_wife_daughter, literacy, address, ST_AsText(farmer_address_coordinates,'axis-order=long-lat'), date_created, date_modified from sai.saia_farmers WHERE user_id ='"+user_id+"';";
 			resultSet = statement.executeQuery(query);
 
 			List<SaiaFarmerData> msqlData = writeResultSet(resultSet);
@@ -754,7 +768,7 @@ public class ClientSaiaFarmApplication {
 		}
 		else {
 			//List<Float> coord;
-			String query = "select farm_name, ST_AsText(farm_coordinates) from sai.agri_farm WHERE farm_name ='"+farmName+"';";
+			String query = "select farm_name, ST_AsText(farm_coordinates,'axis-order=long-lat') from sai.agri_farm WHERE farm_name ='"+farmName+"';";
 			resultSet = statement.executeQuery(query);
 
 
@@ -789,7 +803,7 @@ public class ClientSaiaFarmApplication {
 
 			String farm_name = resultSet.getString("farm_name");
 
-			String farm_coordinates = resultSet.getString("ST_AsText(farm_coordinates)");
+			String farm_coordinates = resultSet.getString("ST_AsText(farm_coordinates,'axis-order=long-lat')");
 
 			SaiaFarmData cData = new SaiaFarmData(farm_coordinates, resultSet.getString("farm_name"));
 
@@ -822,7 +836,7 @@ public class ClientSaiaFarmApplication {
 		}
 		else {
 			//List<Float> coord;
-			String query = "select parcel_name, ST_AsText(location) from sai.agri_parcel WHERE parcel_name ='"+parcelName+"';";
+			String query = "select parcel_name, ST_AsText(location,'axis-order=long-lat') from sai.agri_parcel WHERE parcel_name ='"+parcelName+"';";
 			resultSet = statement.executeQuery(query);
 
 
@@ -844,7 +858,7 @@ public class ClientSaiaFarmApplication {
 
 			String parcelName = resultSet.getString("parcel_name");
 
-			String location = resultSet.getString("ST_AsText(location)");
+			String location = resultSet.getString("ST_AsText(location,'axis-order=long-lat')");
 
 			SaiaiParcelData cData = new SaiaiParcelData(location, resultSet.getString("parcel_name"));
 			//SaiaiParcelData cData = new SaiaiParcelData(location, resultSet.getString("farm_name"));

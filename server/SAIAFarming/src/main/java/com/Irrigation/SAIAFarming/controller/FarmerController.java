@@ -123,7 +123,7 @@ public class FarmerController extends BaseController {
         System.out.println("I am here 1");
         ClientSaiaFarmApplication dao = new ClientSaiaFarmApplication();
         //dao.readDataBase();
-        ArrayList farmerData = dao.FarmerData();
+        ArrayList<SAIAFarmer> farmerData = dao.FarmerData();
 
         String something = new String(String.valueOf(dao.FarmerData()));
         //System.out.println(something);
@@ -183,7 +183,7 @@ public class FarmerController extends BaseController {
 
         ClientSaiaFarmApplication dao = new ClientSaiaFarmApplication();
         //dao.readDataBase();
-        ArrayList farmerDetail = dao.SingleFarmerDetail(farmer_id);
+        ArrayList<SAIAFarmer> farmerDetail = dao.SingleFarmerDetail(farmer_id);
 
         //String something = new String(String.valueOf(dao.FarmerData()));
         //System.out.println(something);
