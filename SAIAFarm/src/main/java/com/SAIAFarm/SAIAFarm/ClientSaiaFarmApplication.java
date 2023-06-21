@@ -649,6 +649,7 @@ public class ClientSaiaFarmApplication {
 			return msqlData;
 		}
 	}
+	
 	private List<SaiaiParcelData> parcelwriteResultSet(ResultSet resultSet) throws SQLException {
 		// ResultSet is initially before the first data set
 		List<String> list = new ArrayList<String>();
@@ -721,6 +722,7 @@ public class ClientSaiaFarmApplication {
 			this.preparedStatement.setString(12, parcelName);
 			this.preparedStatement.executeUpdate();
 			SaiaiParcelData parcelPostData = new SaiaiParcelData(userId, farm_id, location, area, category, relatedSource, belongsTo, hasAgriCrop, hasAgriSoil, lastPlantedAt, waterStressmean, parcelName);
+
 			return parcelPostData;
 		}
 	}
